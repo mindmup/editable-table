@@ -104,7 +104,9 @@ $.fn.editableTableWidget = function (options) {
 				e.preventDefault();
 			}
 		})
-		.on('keypress dblclick', showEditor)
+		.on('click keypress dblclick',function(e) {
+			showEditor(true);
+		})
 		.css('cursor', 'pointer');
 	});
 };
