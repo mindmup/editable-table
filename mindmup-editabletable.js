@@ -46,7 +46,7 @@ $.fn.editableTableWidget = function (options) {
 				} else if (keycode === ARROW_DOWN) {
 					return element.parent().next().children().eq(element.index());
 				}
-				return false;
+				return [];
 			}
 		editor.blur(function () {
 			setActiveText();
@@ -68,8 +68,10 @@ $.fn.editableTableWidget = function (options) {
 				active.focus();
 			} else if (this.selectionEnd - this.selectionStart === this.value.length) {
 				var possibleMove = movement(active, e.which);
-				if (possibleMove && possibleMove.size() > 0) {
+				if (possibleMove.length > 0) {
 					possibleMove.focus();
+					e.preventDefault();
+					e.stopPropagation();
 				}
 			}
 		})
@@ -87,10 +89,10 @@ $.fn.editableTableWidget = function (options) {
 		.keydown(function (e) {
 			var prevent = true,
 				possibleMove = movement($(this), e.which);
-			if (possibleMove && possibleMove.size() > 0) {
+			if (possibleMove.length > 0) {
 				possibleMove.focus();
 			} else if (e.which === ENTER) {
-				showEditor();
+				showEditor(false);
 			} else if (e.which === 17 || e.which === 91) {
 				showEditor(true);
 				prevent = false;
@@ -102,11 +104,8 @@ $.fn.editableTableWidget = function (options) {
 				e.preventDefault();
 			}
 		})
-		.keypress(function (e) {
-			showEditor(true);
-		})
-		.css('cursor', 'pointer')
-		.dblclick(showEditor);
+		.on('keypress dblclick', showEditor)
+		.css('cursor', 'pointer');
 	});
 };
 $.fn.editableTableWidget.defaultOptions =	{
