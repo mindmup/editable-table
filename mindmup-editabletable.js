@@ -110,6 +110,6 @@ $.fn.editableTableWidget = function (options) {
 	});
 };
 $.fn.editableTableWidget.defaultOptions =	{
-	cloneProperties: ['padding', 'text-align', 'font', 'border-top'],
+	cloneProperties: ['padding','padding-top', 'padding-bottom', 'padding-left', 'padding-right', 'text-align', 'font', 'font-size', 'font-family','font-weight', 'border-top'],
 	editor: $('<input>')
 };

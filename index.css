@@ -9,6 +9,7 @@ td:focus {
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
 	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;	
+	outline: rgb(91, 157, 217) auto 5px;
 }
 input.error {
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px red;
@@ -20,6 +21,7 @@ input {
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
 	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;	
+	outline: rgb(91, 157, 217) auto 5px;
 	outline-offset: 0px;
 	border: none;
 }
@@ -44,3 +46,5 @@ html>body table.scrollable tbody {
 html>body table.scrollable td, html>body table.scrollable th {
 	width: 200px
 }
+
+
