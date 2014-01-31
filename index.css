@@ -1,5 +1,9 @@
-/* this CSS is not part of the widget, it is here just as an example of the demo page styling.... Don't copy this one, roll your own. One
- * of the key things about the widget is that it allows you to do your own styling!
+/* 
+ * this CSS is not part of the widget, it is here just as an example of the demo page styling.... 
+ * 
+ * Don't copy this one, roll your own. One of the key things about the widget is that 
+ * it allows you to do your own styling!
+ *
  */
 td:focus {
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
@@ -21,6 +25,9 @@ input {
 }
 #mainTable thead th, #mainTable tbody td { 
   width: 25%;
+}
+#mainTable td + td, #mainTable th + th {
+	text-align: right;
 }
 table.scrollable thead tr, table.scrollable tfoot tr  {
 	position: relative;

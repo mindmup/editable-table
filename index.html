@@ -17,6 +17,7 @@
     <script src="external/google-code-prettify/prettify.js"></script>
 		<link href="index.css" rel="stylesheet">
     <script src="mindmup-editabletable.js"></script>
+    <script src="numeric-input-example.js"></script>
   </head>
   <body>
 <div class="container">
@@ -27,18 +28,21 @@
   </div>
 	<h1>editableTable<br/> <small>tiny editable table/spreadsheet plugin for jQuery/Bootstrap</small></h1>
 	<hr/>
+		<div class="alert alert-error hide">
+			That would cost too much
+		</div>
           <table id="mainTable" class="table table-striped">
             <thead><tr><th>Name</th><th>Cost</th><th>Profit</th><th>Fun</th></tr></thead>
             <tbody>
               <tr><td>Car</td><td>100</td><td>200</td><td>0</td></tr>
               <tr><td>Bike</td><td>330</td><td>240</td><td>1</td></tr>
               <tr><td>Plane</td><td>430</td><td>540</td><td>3</td></tr>
-              <tr><td>Car</td><td>100</td><td>200</td><td>0</td></tr>
-              <tr><td>Bike</td><td>330</td><td>240</td><td>1</td></tr>
-              <tr><td>Plane</td><td>430</td><td>540</td><td>3</td></tr>
+              <tr><td>Yacht</td><td>100</td><td>200</td><td>0</td></tr>
+              <tr><td>Segway</td><td>330</td><td>240</td><td>1</td></tr>
             </tbody>
+			<tfoot><tr><th><strong>TOTAL</strong></th><th></th><th></th><th></th></tr></thead>
           </table>
-          <h2><small>just start typing to edit, or move around with arrow keys!</small></h2>
+          <h2><small>just start typing to edit, or move around with arrow keys or mouse clicks!</small></h2>
 </div>
 <div class="row">
     <div class="span6">
@@ -49,9 +53,10 @@
           Here are the key features:
       </p>
           <ul>
-            <li>No magic - works on a normal HTML table (so you can plug it in into any web table)</li>
+            <li>No magic - works on a normal HTML table (so you can plug it in into any web table, and apply any JS function to calculate values)</li>
             <li>Supports validation and change events (so you can warn about invalid input or prevent invalid changes)</li>
             <li>Uses standard DOM focus for selection (so does not interrupt scrolling or tabbing outside the table)</a></li>
+			<li>Input automatically copies underlying table cell styling</li>
             <li>Native copy/paste support</li>
             <li>Does not force any styling (so you can style it any way you want, using normal CSS)</li>
 			<li>Works well with Bootstrap</li>
@@ -60,17 +65,34 @@
 
 
       <h2>Usage</h2>
-<pre class="prettyprint linenums">
+<pre class="prettyprint ">
 $('#table').editableTableWidget();
 </pre>    
 <p>Use a text area instead of input field to input (or supply a custom editor element)</p>
-<pre class="prettyprint linenums">
+<pre class="prettyprint ">
 $('#table').editableTableWidget({editor: $('&lt;textarea&gt;')});
 </pre>
 <p>Make sure that the editor clones some specific CSS properties of the underlying cell</p>
-<pre class="prettyprint linenums">
+<pre class="prettyprint ">
 $('#table').editableTableWidget({
 	cloneProperties: ['background', 'border', 'outline']
+});
+</pre>
+<p>Mark content as invalid during editing (for example, change one of the item names above to blank or try to enter a non-numeric cost)</p>
+<pre class="prettyprint">
+$('table td').on('validate', function(evt, newValue) {
+	if (....) { 
+		return false; // mark cell as invalid 
+	}
+});
+</pre>
+<p>Act on a change (or even reject it). This is now the numbers above recalculate. Also, try to increase total cost over 5000!</p>
+<pre class="prettyprint">
+$('table td').on('change', function(evt, newValue) {
+	// do something with the new cell value 
+	if (....) { 
+		return false; // reject change
+	}
 });
 </pre>
     </div>
@@ -106,7 +128,7 @@ $('#table').editableTableWidget({
 </div>
 
 <script>
-  $('#mainTable').editableTableWidget().find('td:first').focus();
+  $('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
   $('#textAreaEditor').editableTableWidget({editor: $('<textarea>')});
   window.prettyPrint && prettyPrint();
 </script>
