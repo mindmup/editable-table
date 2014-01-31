@@ -1,0 +1,39 @@
+/* this CSS is not part of the widget, it is here just as an example of the demo page styling.... Don't copy this one, roll your own. One
+ * of the key things about the widget is that it allows you to do your own styling!
+ */
+td:focus {
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;	
+}
+input.error {
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px red;
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px red;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px red;	
+	outline: thin auto red;
+}
+input {
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;	
+	outline-offset: 0px;
+	border: none;
+}
+#mainTable thead th, #mainTable tbody td { 
+  width: 25%;
+}
+table.scrollable thead tr, table.scrollable tfoot tr  {
+	position: relative;
+	display: block
+}
+
+html>body table.scrollable tbody {
+	display: block;
+	height: 330px;
+	overflow: auto;
+	width: 100%
+}
+
+html>body table.scrollable td, html>body table.scrollable th {
+	width: 200px
+}
