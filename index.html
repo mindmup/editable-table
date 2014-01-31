@@ -44,81 +44,53 @@
     <div class="span6">
           <h2>About</h2>
           <p>
-          This <a href="https://github.com/mindmup/bootstrap-wysiwyg/blob/master/bootstrap-wysiwyg.js">tiny (5KB, &lt; 200 lines) jQuery Bootstrap plugin</a> turns any DIV into a WYSIWYG
-          rich-content editor, inspired by <a href="http://premiumsoftware.net/cleditor/">CLEditor</a> and
-              <a href="http://jhollingworth.github.com/bootstrap-wysihtml5/">bootstrap-wysihtml5</a>. 
+		  This <a href="https://github.com/mindmup/editable-table/blob/master/mindmup-editabletable.js">tiny (3KB, &lt; 120 lines) jQuery plugin</a> turns any 
+		  table into an editable spreadsheet. 
           Here are the key features:
       </p>
           <ul>
-            <li>Automatically binds standard hotkeys for common operations on Mac and Windows</li>
-            <li>Drag and drop files to insert images, support image upload (also taking photos on mobile devices)</li>
-            <li>Voice dictation input (only in Chrome)</li>
-            <li>Allows a custom built toolbar, no magic markup generators, enabling the web site to use all the goodness of Bootstrap, Font Awesome and so on...</li>
-            <li>Does not force any styling - it's all up to you</li>
-            <li>Uses standard browser features, no magic non-standard code, toolbar and keyboard configurable to execute any <a href="https://developer.mozilla.org/en/docs/Rich-Text_Editing_in_Mozilla">supported browser command</a></li>
-            <li>Does not create a separate frame, backup text areas etc - instead keeps it simple and runs everything inline in a DIV</li>
-            <li>(Optionally) cleans up trailing whitespace and empty divs and spans</li> 
-            <li>Requires a modern browser (tested in Chrome 26, Firefox 19, Safari 6, reported by users to work in IE10)</li>
-            <li>Supports mobile devices (tested on IOS 6 Ipad/Iphone and Android 4.1.1 Chrome)</li>
+            <li>No magic - works on a normal HTML table (so you can plug it in into any web table)</li>
+            <li>Supports validation and change events (so you can warn about invalid input or prevent invalid changes)</li>
+            <li>Uses standard DOM focus for selection (so does not interrupt scrolling or tabbing outside the table)</a></li>
+            <li>Native copy/paste support</li>
+            <li>Does not force any styling (so you can style it any way you want, using normal CSS)</li>
+			<li>Works well with Bootstrap</li>
+			<li>Depends only on jQuery</li>
           </ul>
 
 
+      <h2>Usage</h2>
+<pre class="prettyprint linenums">
+$('#table').editableTableWidget();
+</pre>    
+<p>Use a text area instead of input field to input (or supply a custom editor element)</p>
+<pre class="prettyprint linenums">
+$('#table').editableTableWidget({editor: $('&lt;textarea&gt;')});
+</pre>
+<p>Make sure that the editor clones some specific CSS properties of the underlying cell</p>
+<pre class="prettyprint linenums">
+$('#table').editableTableWidget({
+	cloneProperties: ['background', 'border', 'outline']
+});
+</pre>
+    </div>
+    <div class="span6" >
         <h2>Why?</h2>
 
         <a href="http://www.mindmup.com"><img class="span5" src="http://mindmup.github.io/promo-868x350.png"></a>
         <br clear="all" />
         <p>
-          While building a content editor for <a href="http://www.mindmup.com">MindMup</a> we found plenty of good HTML5 WYSWYG editors online, but most were duplicating
-          functionality that already exists in jQuery and Bootstrap, implementing things that were meanwhile added to HTML5 and supported in major browsers, 
-          or doing too much magic such as inserting IFrames with backup text-areas. Most of this was to work around quirks in older browsers (which we didn't need) and 
-          caused focus problems on touch devices (which was an issue for us). Too much magic caused problems with 
-          bootstrap modals (a must for us). Most editors also build their own toolbars, which embed additional CSS and images and always 
-          turn out to be much worse than standard Bootstrap buttons. </p>
-          <p>It turns out, with HTML5, everything we need can fit into less than 5K. We built this tiny tiny editor that does everything we need, does not impose
-          any particular additional CSS and uses modern browser functionality without reimplementing jQuery and Bootstrap. </p>
+		We built a tabular data editor for <a href="http://www.mindmup.com">MindMup</a>. Yes, there are plenty of existing widgets such as this, but
+		the ones we could find were either too magic (automatically generated tables with custom styles, interrupting normal focus flow, faking selection with background styles, flash-based copy-paste) 
+		or too big (good ones start at 200KB).</p>
+		<p>MindMup targets recent browsers, so with HTML5, everything we need can fit into less than 3K. We built this tiny tiny 
+		editor that does everything we need, does not impose
+          any particular additional CSS, does not fight DOM but uses it as normal, works well with Bootstrap styling, and fits nicely into jQuery event processing. </p>
           <p>It's released under the MIT license, so fork and enjoy!  </p>
 
 
-
-    </div>
-    <div class="span6" >
-      <h2>Usage</h2>
-      <pre class="prettyprint linenums">$('#editor').wysiwyg();</pre>    
-<p>Don't forget to style your editor div:</p>
-<pre class="prettyprint linenums">
- #editor {overflow:scroll; max-height:300px}
-</pre>
-<p>If you want to use this for a mobile web site, make sure to read about
-<a href="https://github.com/mindmup/bootstrap-wysiwyg#styling-for-mobile-devices">how to style it</a> to optimise mobile screen usage and experience (please note that this 
-demo page isn't optimised for mobile access).</p>
-
-      <p>Optionally, also create a toolbar (see the source of this page for an example):</p>
-<pre class="prettyprint linenums">
-&lt;div class="btn-toolbar" data-role="editor-toolbar"
-        data-target="#editor"&gt;
-  ...
-&lt;/div&gt; 
-</pre>
-<p>In the toolbar, execute simple commands by adding a data-edit attribute to a link.<p>
-<pre class="prettyprint linenums">
-  &lt;a data-edit="bold"&gt;...&lt;/a&gt;
-</pre>
-<p>execute more complex commands by adding an argument after a blank or providing an input with a data-edit command (the input value is used as an argument). In case of 
-file inputs, the file contents are read in using the FileReader API and used as the command value.<p>
-<pre class="prettyprint linenums">
-&lt;a data-edit="fontName Arial"&gt;...&lt;/a&gt;
-...
-&lt;input type="text" data-edit="createLink"/&gt;
-...
-&lt;input type="file" data-edit="insertImage" /&gt;
-</pre>
-<p>Use standard jQuery methods to access and set content and focus. You can also ask for cleaned up HTML content:</p>
-<pre class="prettyprint linenums">
- $('#editor').cleanHtml()
-</pre>
-
 			 <p style="text-align:center;">
-				<a class="btn btn-large btn-primary jumbo" href="https://github.com/mindmup/bootstrap-wysiwyg/">View project on Github</a>
+				<a class="btn btn-large btn-primary jumbo" href="https://github.com/mindmup/editable-table">View project on Github</a>
       </p>
 			 <p style="text-align:center; margin-top:20px">
         <a class="btn" href="mailto:contact@mindmup.com"><i class="icon-envelope"></i></a>
@@ -126,6 +98,7 @@ file inputs, the file contents are read in using the FileReader API and used as 
           <a class="btn" href="http://twitter.com/mindmup"><i class="icon-twitter"></i></a>
           <a class="btn" href="https://plus.google.com/u/0/communities/112831595986131146219"><i class="icon-google-plus"></i></a>
         </p>
+
 
           
 		</div>
@@ -137,7 +110,7 @@ file inputs, the file contents are read in using the FileReader API and used as 
   $('#textAreaEditor').editableTableWidget({editor: $('<textarea>')});
   window.prettyPrint && prettyPrint();
 </script>
-<a href="https://github.com/mindmup/bootstrap-wysiwyg/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+<a href="https://github.com/mindmup/editable-table"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 <div id="fb-root"></div>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
