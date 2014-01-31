@@ -109,8 +109,16 @@ $('table td').on('change', function(evt, newValue) {
 		editor that does everything we need, does not impose
           any particular additional CSS, does not fight DOM but uses it as normal, works well with Bootstrap styling, and fits nicely into jQuery event processing. </p>
           <p>It's released under the MIT license, so fork and enjoy!  </p>
-
-
+		<h2>FAQ</h2>
+		<h4>Can the widget insert rows and columns?</h4>
+		<p>It works on your HTML table. Just use normal DOM manipulation to insert rows and cells. You don't need to extend the widget for that. You can bind a keystroke to the table or some buttons to do that, for example.</p>
+		<h4>Can the widget apply numeric functions?</h4>
+		<p>It works on your HTML table. Just use normal javascript/DOM manipulation to calculate stuff. Listen to the change event and recalculate (see an example on the left).</p>
+		<h4>Can the widget sync with a background data model?</h4>
+		<p>It works on your HTML table, so just use HTML5 data binding or whatever you would normally use to sync with the DOM, and normal javascript/DOM manipulation to update. You don't need to tell the widget about updates.
+		To sync in the other direction, subscribe to the change event.</p>
+		<h4>How do I post data to my server?</h4>
+		<p>It works on your HTML table, so use standard DOM functions to pull the data from the table, and use jQuery to post to the server</p> 
 			 <p style="text-align:center;">
 				<a class="btn btn-large btn-primary jumbo" href="https://github.com/mindmup/editable-table">View project on Github</a>
       </p>
