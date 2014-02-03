@@ -1,4 +1,4 @@
-/*global $*/
+/*global $, window*/
 $.fn.editableTableWidget = function (options) {
 	'use strict';
 	return $(this).each(function () {
@@ -47,7 +47,7 @@ $.fn.editableTableWidget = function (options) {
 					return element.parent().next().children().eq(element.index());
 				}
 				return [];
-			}
+			};
 		editor.blur(function () {
 			setActiveText();
 			editor.hide();
@@ -104,15 +104,21 @@ $.fn.editableTableWidget = function (options) {
 				e.preventDefault();
 			}
 		})
-		.on('click keypress dblclick',function(e) {
-			showEditor(true);
-		})
+		.on('click keypress dblclick', showEditor)
 		.css('cursor', 'pointer');
+		$(window).on('resize', function () {
+			if (editor.is(':visible')) {
+				editor.offset(active.offset())
+				.width(active.width())
+				.height(active.height());
+			}
+		});
 	});
+
 };
 $.fn.editableTableWidget.defaultOptions =	{
-	cloneProperties: ['padding','padding-top', 'padding-bottom', 'padding-left', 'padding-right',
+	cloneProperties: ['padding', 'padding-top', 'padding-bottom', 'padding-left', 'padding-right',
 					  'text-align', 'font', 'font-size', 'font-family', 'font-weight',
-					  'border', 'border-top','border-bottom', 'border-left', 'border-right'],
+					  'border', 'border-top', 'border-bottom', 'border-left', 'border-right'],
 	editor: $('<input>')
 };
