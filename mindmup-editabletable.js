@@ -5,7 +5,7 @@ $.fn.editableTableWidget = function (options) {
 		var activeOptions = $.extend($.fn.editableTableWidget.defaultOptions, options),
 			ARROW_LEFT = 37, ARROW_UP = 38, ARROW_RIGHT = 39, ARROW_DOWN = 40, ENTER = 13, ESC = 27, TAB = 9,
 			element = $(this),
-			editor = activeOptions.editor.css('position', 'absolute').hide().appendTo('body'),
+			editor = activeOptions.editor.css('position', 'absolute').hide().appendTo(element.parent()),
 			active,
 			showEditor = function (select) {
 				active = element.find('td:focus');
@@ -84,16 +84,16 @@ $.fn.editableTableWidget = function (options) {
 				editor.removeClass('error');
 			}
 		});
-		element.find('td')
-		.prop('tabindex', 1)
+		element.on('click keypress dblclick', showEditor)
+		.css('cursor', 'pointer')
 		.keydown(function (e) {
 			var prevent = true,
-				possibleMove = movement($(this), e.which);
+				possibleMove = movement($(e.target), e.which);
 			if (possibleMove.length > 0) {
 				possibleMove.focus();
 			} else if (e.which === ENTER) {
 				showEditor(false);
-			} else if (e.which === 17 || e.which === 91) {
+			} else if (e.which === 17 || e.which === 91 || e.which === 93) {
 				showEditor(true);
 				prevent = false;
 			} else {
@@ -103,9 +103,10 @@ $.fn.editableTableWidget = function (options) {
 				e.stopPropagation();
 				e.preventDefault();
 			}
-		})
-		.on('click keypress dblclick', showEditor)
-		.css('cursor', 'pointer');
+		});
+
+		element.find('td').prop('tabindex', 1);
+
 		$(window).on('resize', function () {
 			if (editor.is(':visible')) {
 				editor.offset(active.offset())
