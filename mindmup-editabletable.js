@@ -2,7 +2,12 @@
 $.fn.editableTableWidget = function (options) {
 	'use strict';
 	return $(this).each(function () {
-		var activeOptions = $.extend($.fn.editableTableWidget.defaultOptions(), options),
+		var buildDefaultOptions = function () {
+				var opts = $.extend({}, $.fn.editableTableWidget.defaultOptions);
+				opts.editor = opts.editor.clone();
+				return opts;
+			},
+			activeOptions = $.extend(buildDefaultOptions(), options),
 			ARROW_LEFT = 37, ARROW_UP = 38, ARROW_RIGHT = 39, ARROW_DOWN = 40, ENTER = 13, ESC = 27, TAB = 9,
 			element = $(this),
 			editor = activeOptions.editor.css('position', 'absolute').hide().appendTo(element.parent()),
@@ -117,12 +122,10 @@ $.fn.editableTableWidget = function (options) {
 	});
 
 };
-$.fn.editableTableWidget.defaultOptions = function () {
-	'use strict';
-	return {
-		cloneProperties: ['padding', 'padding-top', 'padding-bottom', 'padding-left', 'padding-right',
-						  'text-align', 'font', 'font-size', 'font-family', 'font-weight',
-						  'border', 'border-top', 'border-bottom', 'border-left', 'border-right'],
-		editor: $('<input>')
-	};
+$.fn.editableTableWidget.defaultOptions = {
+	cloneProperties: ['padding', 'padding-top', 'padding-bottom', 'padding-left', 'padding-right',
+					  'text-align', 'font', 'font-size', 'font-family', 'font-weight',
+					  'border', 'border-top', 'border-bottom', 'border-left', 'border-right'],
+	editor: $('<input>')
 };
+
